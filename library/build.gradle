@@ -1,0 +1,15 @@
+ext.module_name = "casdoor-android-sdk-test"
+
+apply from: rootProject.file("gradle/android_library_config.gradle")
+
+dependencies {
+  implementation 'com.google.firebase:firebase-encoders:17.0.0'
+    compileOnly deps.androidx.annotations
+  implementation deps.kotlin.stdlib8
+
+  testImplementation deps.kotlin.test.mockito
+  testImplementation deps.test.robolectric
+  testImplementation deps.test.junit
+  testImplementation deps.test.mockito_core
+  testImplementation deps.test.truth
+}
