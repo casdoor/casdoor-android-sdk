@@ -17,11 +17,11 @@ class CasdoorConfigTest {
             clientID = "",
             organizationName = "",
             redirectUri = "",
-            endpoint = "bar/",
+            endpoint = "http://bar.com/",
             appName = ""
         )
 
-        assertEquals("bar/api/", casdoorConfig1.apiEndpoint)
+        assertEquals("http://bar.com/api/", casdoorConfig1.apiEndpoint)
 
         val casdoorConfig2 = CasdoorConfig(
             clientID = "",
@@ -29,9 +29,9 @@ class CasdoorConfigTest {
             redirectUri = "",
             endpoint = "",
             appName = "",
-            apiEndpoint = "foo"
+            apiEndpoint = "http://foo.com"
         )
-        assertEquals("foo/", casdoorConfig2.apiEndpoint)
+        assertEquals("http://foo.com/", casdoorConfig2.apiEndpoint)
 
     }
 }
