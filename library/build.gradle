@@ -1,7 +1,16 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
 }
+
+ext {
+    PUBLISH_GROUP_ID = 'org.casbin'
+    PUBLISH_ARTIFACT_ID = 'casdoor-android-sdk'
+    PUBLISH_VERSION = '1.0.0'
+}
+
+//apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
 
 android {
     compileSdk 32
@@ -20,19 +29,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = '11'
     }
+    buildToolsVersion '32.0.0'
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-    implementation 'com.squareup.moshi:moshi:1.14.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.14.0'
+    ksp 'com.squareup.moshi:moshi-kotlin-codegen:1.14.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
