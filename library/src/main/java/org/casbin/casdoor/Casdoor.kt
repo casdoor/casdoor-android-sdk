@@ -82,7 +82,8 @@ class Casdoor(private val config: CasdoorConfig) {
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = AccessTokenRequest(
             code = code,
-            verifier = codeVerifier!!,
+            verifier = codeVerifier
+                ?: throw IllegalStateException("Please call getSignInUrl first"),
             clientID = config.clientID
         ).toHttpUrl(httpUrl)
 

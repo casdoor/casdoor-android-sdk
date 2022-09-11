@@ -15,9 +15,8 @@
  */
 package org.casbin.casdoor
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Tests of CasdoorConfig.

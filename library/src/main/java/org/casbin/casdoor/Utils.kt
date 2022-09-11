@@ -55,7 +55,8 @@ internal object Utils {
         val digest = MessageDigest.getInstance("SHA-256")
         val hash = digest.digest(verifier.toByteArray())
         // encode hash with base64
-        val base64String = Base64.encodeToString(hash, Base64.NO_WRAP or Base64.URL_SAFE or Base64.NO_PADDING)
+        val base64String =
+            Base64.encodeToString(hash, Base64.NO_WRAP or Base64.URL_SAFE or Base64.NO_PADDING)
         return base64Url(base64String)
     }
 
