@@ -24,19 +24,24 @@ data class CasdoorConfig(
     val clientID: String,
     val organizationName: String,
     val redirectUri: String,
-    val endpoint: String,
+    var endpoint: String,
     val appName: String,
     var apiEndpoint: String? = null
 ) {
 
 
     init {
+        endpoint = formatEndpoint(endpoint)
         apiEndpoint = if (apiEndpoint != null) {
-            val apiEndpointTemp = apiEndpoint!!.trim()
-            if (apiEndpointTemp.endsWith("/")) apiEndpointTemp else "$apiEndpointTemp/"
+            formatEndpoint(apiEndpoint!!)
         } else {
             "${endpoint}api/"
         }
+    }
+
+    private fun formatEndpoint(url: String): String {
+        val trimmedUrl = url.trim()
+        return if (trimmedUrl.endsWith("/")) trimmedUrl else "$trimmedUrl/"
     }
 
 
