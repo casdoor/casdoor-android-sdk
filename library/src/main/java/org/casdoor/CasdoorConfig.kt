@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The casbin Authors. All Rights Reserved.
+ * Copyright 2022 The Casdoor Authors. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.casbin.casdoor
+package org.casdoor
 
 /**
  *
@@ -24,19 +24,24 @@ data class CasdoorConfig(
     val clientID: String,
     val organizationName: String,
     val redirectUri: String,
-    val endpoint: String,
+    var endpoint: String,
     val appName: String,
     var apiEndpoint: String? = null
 ) {
 
 
     init {
+        endpoint = formatEndpoint(endpoint)
         apiEndpoint = if (apiEndpoint != null) {
-            val apiEndpointTemp = apiEndpoint!!.trim()
-            if (apiEndpointTemp.endsWith("/")) apiEndpointTemp else "$apiEndpointTemp/"
+            formatEndpoint(apiEndpoint!!)
         } else {
             "${endpoint}api/"
         }
+    }
+
+    private fun formatEndpoint(url: String): String {
+        val trimmedUrl = url.trim()
+        return if (trimmedUrl.endsWith("/")) trimmedUrl else "$trimmedUrl/"
     }
 
 

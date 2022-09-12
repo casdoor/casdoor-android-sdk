@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The casbin Authors. All Rights Reserved.
+ * Copyright 2022 The Casdoor Authors. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.casbin.casdoor
+package org.casdoor
 
 import android.util.Base64
 import java.security.MessageDigest
@@ -55,7 +55,8 @@ internal object Utils {
         val digest = MessageDigest.getInstance("SHA-256")
         val hash = digest.digest(verifier.toByteArray())
         // encode hash with base64
-        val base64String = Base64.encodeToString(hash, Base64.NO_WRAP or Base64.URL_SAFE or Base64.NO_PADDING)
+        val base64String =
+            Base64.encodeToString(hash, Base64.NO_WRAP or Base64.URL_SAFE or Base64.NO_PADDING)
         return base64Url(base64String)
     }
 
