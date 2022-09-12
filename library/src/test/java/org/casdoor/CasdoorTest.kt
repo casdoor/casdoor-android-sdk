@@ -1,4 +1,4 @@
-package org.casbin.casdoor
+package org.casdoor
 
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -33,6 +33,7 @@ internal class CasdoorTest {
         println(casdoor.getSignInUrl())
         try {
             val accessToken = casdoor.requestOauthAccessToken("code")
+            println(accessToken)
         } catch (e: IOException) {
             assertNotNull(e)
         }
