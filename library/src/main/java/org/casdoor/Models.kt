@@ -101,19 +101,19 @@ data class RenewAccessTokenRequest(
 
 @JsonClass(generateAdapter = true)
 data class AccessTokenResponse(
-    @Json(name = "access_token") var accessToken: String,
-    @Json(name = "error") var error: String,
-    @Json(name = "expires_in") var expiresIn: Int,
-    @Json(name = "id_token") var idToken: String? = null,
-    @Json(name = "refresh_token") var refreshToken: String? = null,
-    @Json(name = "scope") var scope: String,
-    @Json(name = "token_type") var tokenType: String
+    @Json(name = "access_token") var accessToken: String?,
+    @Json(name = "error") var error: String?,
+    @Json(name = "expires_in") var expiresIn: Int?,
+    @Json(name = "id_token") var idToken: String?,
+    @Json(name = "refresh_token") var refreshToken: String?,
+    @Json(name = "scope") var scope: String?,
+    @Json(name = "token_type") var tokenType: String?
 )
 
 @JsonClass(generateAdapter = true)
 data class CasdoorResponse<D1, D2>(
-    @Json(name = "status") var status: String,
-    @Json(name = "msg") var msg: String,
+    @Json(name = "status") var status: String?,
+    @Json(name = "msg") var msg: String?,
     @Json(name = "data") var data: D1?,
     @Json(name = "data2") var data2: D2?
 ) {

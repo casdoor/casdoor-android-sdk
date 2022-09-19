@@ -89,10 +89,15 @@ class Casdoor(private val config: CasdoorConfig) {
 
         client.newCall(Request.Builder().url(httpUrl).post(EMPTY_REQUEST).build()).execute().use {
             if (!it.isSuccessful) throw IOException("Unexpected code $it")
-            val accessToken: AccessTokenResponse? =
-                accessTokenResponseAdaptor.fromJson(it.body!!.source())
-            accessToken?.refreshToken ?: throw IOException("response error: $it")
-            return accessToken
+
+            try {
+                val accessToken: AccessTokenResponse? =
+                    accessTokenResponseAdaptor.fromJson(it.body!!.source())
+                accessToken?.refreshToken ?: throw IOException("response error: $it")
+                return accessToken
+            } catch (e: Exception) {
+                throw IOException("response error: $it")
+            }
         }
 
     }
@@ -112,10 +117,16 @@ class Casdoor(private val config: CasdoorConfig) {
 
         client.newCall(Request.Builder().url(httpUrl).post(EMPTY_REQUEST).build()).execute().use {
             if (!it.isSuccessful) throw IOException("Unexpected code $it")
-            val accessToken: AccessTokenResponse? =
-                accessTokenResponseAdaptor.fromJson(it.body!!.source())
-            accessToken?.refreshToken ?: throw IOException("response error: $it")
-            return accessToken
+
+            try {
+                val accessToken: AccessTokenResponse? =
+                    accessTokenResponseAdaptor.fromJson(it.body!!.source())
+                accessToken?.refreshToken ?: throw IOException("response error: $it")
+                return accessToken
+            } catch (e: Exception) {
+                throw IOException("response error: $it")
+            }
+
         }
 
     }
@@ -133,15 +144,20 @@ class Casdoor(private val config: CasdoorConfig) {
 
         client.newCall(Request.Builder().url(httpUrl).post(EMPTY_REQUEST).build()).execute().use {
             if (!it.isSuccessful) throw IOException("Unexpected code $it")
-            val casdoorResponse: CasdoorNoDataResponse? =
-                casdoorNoDataResponseAdaptor.fromJson(it.body!!.source())
 
-            if (casdoorResponse?.isSuccessful() == false) {
+            try {
+                val casdoorResponse: CasdoorNoDataResponse? =
+                    casdoorNoDataResponseAdaptor.fromJson(it.body!!.source())
+                if (casdoorResponse?.isSuccessful() == false) {
+                    throw IOException("response error: $it")
+                }
+
+                val isAffected = casdoorResponse?.data
+                return (isAffected != null && isAffected == "Affected")
+            } catch (e: Exception) {
                 throw IOException("response error: $it")
             }
 
-            val isAffected = casdoorResponse?.data
-            return (isAffected != null && isAffected == "Affected")
         }
 
     }
