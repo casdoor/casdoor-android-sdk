@@ -142,7 +142,7 @@ class Casdoor(private val config: CasdoorConfig) {
             .addQueryParameter("state", state ?: config.appName)
             .build()
 
-        client.newCall(Request.Builder().url(httpUrl).post(EMPTY_REQUEST).build()).execute().use {
+        client.newCall(Request.Builder().url(httpUrl).get().build()).execute().use {
             if (!it.isSuccessful) throw IOException("Unexpected code $it")
 
             try {
@@ -159,6 +159,10 @@ class Casdoor(private val config: CasdoorConfig) {
             }
 
         }
+
+    }
+
+    fun getUserInfo() {
 
     }
 
