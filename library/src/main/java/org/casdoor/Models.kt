@@ -124,3 +124,17 @@ data class CasdoorResponse<D1, D2>(
 
 typealias CasdoorOneDataResponse<D> = CasdoorResponse<D, String>
 typealias CasdoorNoDataResponse = CasdoorResponse<String, String>
+
+
+@JsonClass(generateAdapter = true)
+data class UserInfo(
+    @Json(name = "sub") var sub: String?,
+    @Json(name = "iss") var iss: String?,
+    @Json(name = "aud") var aud: String?,
+    @Json(name = "name") var name: String?,
+    @Json(name = "preferred_username") var nickname: String?,
+    @Json(name = "picture") var avatar: String?,
+    @Json(name = "email") var email: String?,
+    @Json(name = "address") var address: String?,
+    @Json(name = "phone") var phone: String?,
+)
