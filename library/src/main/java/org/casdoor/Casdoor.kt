@@ -32,6 +32,8 @@ class Casdoor(private val config: CasdoorConfig) {
 
     private val client = OkHttpClient()
     private val moshi = Moshi.Builder().build()
+
+    // Moshi adapters
     private val accessTokenResponseAdaptor = moshi.adapter(AccessTokenResponse::class.java)
     private val casdoorResponseType: Type = Types.newParameterizedType(
         CasdoorResponse::class.java,
@@ -40,6 +42,7 @@ class Casdoor(private val config: CasdoorConfig) {
     )
     private val casdoorNoDataResponseAdaptor =
         moshi.adapter<CasdoorResponse<String, String>>(casdoorResponseType)
+    private val userInfoAdaptor = moshi.adapter(UserInfo::class.java)
 
     /**
      * Get the sign in URL.
@@ -162,8 +165,24 @@ class Casdoor(private val config: CasdoorConfig) {
 
     }
 
-    fun getUserInfo() {
+    /**
+     * Get user info.
+     */
+    fun getUserInfo(idToken: String): UserInfo? {
+        val request = Request.Builder()
+            .url("https://door.casdoor.com/api/userinfo?scope=profile")
+            .header("Authorization", "Bearer $idToken")
+            .build();
 
+        client.newCall(request).execute().use {
+            if (!it.isSuccessful) throw IOException("Unexpected code $it")
+
+            try {
+                return userInfoAdaptor.fromJson(it.body!!.source())
+            } catch (e: Exception) {
+                throw IOException("response error: $it")
+            }
+        }
     }
 
 
