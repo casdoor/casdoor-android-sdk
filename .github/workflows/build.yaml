@@ -38,7 +38,6 @@ jobs:
     if: github.ref == 'refs/heads/master'
     needs:
       - build
-      - instrumentation-tests
 
     steps:
       - name: Checkout
