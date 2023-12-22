@@ -19,18 +19,18 @@ dependencies {
 Initialization requires 5 parameters, which are all str type:
 | Name (in order)  | Must | Description |
 | ---------------- | ---- | --------------------------------------------------- |
-| endpoint | Yes | Casdoor Server Url, such as `http://localhost:8000` |
+| endpoint | Yes | Casdoor Server Url, such as `https://door.casdoor.com` |
 | clientID | Yes | Application.clientID |
-| appName | Yes | Application.name |
-| organizationName | Yes |Organization name
+| appName | Yes | Application name |
+| organizationName | Yes |Organization name |
 
 ```kotlin
 val casdoorConfig = CasdoorConfig(
-   endpoint = "http://localhost:8000",
-   clientID = "ced4d6db2f4644b85a75",
-   organizationName = "organization_6qvtvh",
+   endpoint = "https://door.casdoor.com",
+   clientID = "294b09fbc17f95daf2fe",
    redirectUri = "casdoor://callback",
-   appName = "application_y38644"
+   organizationName = "casbin",
+   appName = "app-vue-python-example"
 )
 ```
 

@@ -25,15 +25,14 @@ import org.junit.Test
 class CasdoorConfigTest {
     @Test
     fun testCasdoorConfig() {
-
         val casdoorConfig1 = CasdoorConfig(
-            clientID = "",
-            organizationName = "",
-            redirectUri = "",
-            endpoint = "http://bar.com",
-            appName = ""
+            endpoint = "https://door.casdoor.com",
+            clientID = "294b09fbc17f95daf2fe",
+            redirectUri = "casdoor://callback",
+            organizationName = "casbin",
+            appName = "app-vue-python-example"
         )
 
-        assertEquals("http://bar.com", casdoorConfig1.endpoint)
+        assertEquals("https://door.casdoor.com", casdoorConfig1.endpoint)
     }
 }

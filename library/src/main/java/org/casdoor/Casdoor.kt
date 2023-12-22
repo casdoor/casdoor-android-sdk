@@ -25,9 +25,7 @@ import okhttp3.internal.EMPTY_REQUEST
 import okio.IOException
 import java.lang.reflect.Type
 
-
 class Casdoor(private val config: CasdoorConfig) {
-
     private var codeVerifier: String? = null
     private var nonce: String? = null
 
@@ -103,7 +101,6 @@ class Casdoor(private val config: CasdoorConfig) {
                 throw IOException("response error: $it")
             }
         }
-
     }
 
     /**
@@ -132,7 +129,6 @@ class Casdoor(private val config: CasdoorConfig) {
             }
 
         }
-
     }
 
     /**
@@ -163,7 +159,6 @@ class Casdoor(private val config: CasdoorConfig) {
             }
 
         }
-
     }
 
     /**
@@ -185,6 +180,4 @@ class Casdoor(private val config: CasdoorConfig) {
             }
         }
     }
-
-
 }
