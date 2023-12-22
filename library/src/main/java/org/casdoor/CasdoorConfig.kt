@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.casdoor
 
 /**
  *
  *
- * Casdoor Config Model
+ * Casdoor Config
  */
 data class CasdoorConfig(
     val clientID: String,
@@ -26,17 +27,4 @@ data class CasdoorConfig(
     val redirectUri: String,
     var endpoint: String,
     val appName: String,
-) {
-
-
-    init {
-        endpoint = formatEndpoint(endpoint)
-    }
-
-    private fun formatEndpoint(url: String): String {
-        val trimmedUrl = url.trim()
-        return if (trimmedUrl.endsWith("/")) trimmedUrl else "$trimmedUrl/"
-    }
-
-
-}
+)

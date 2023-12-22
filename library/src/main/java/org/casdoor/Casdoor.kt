@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.casdoor
 
 import com.squareup.moshi.Moshi
@@ -49,7 +50,7 @@ class Casdoor(private val config: CasdoorConfig) {
      */
     fun getSignInUrl(scope: String? = null, state: String? = null): String {
         this.codeVerifier = Utils.generateCodeVerifier()
-        val url = "${config.endpoint}login/oauth/authorize"
+        val url = "${config.endpoint}/login/oauth/authorize"
         this.nonce = Utils.generateNonce()
         val query = CodeRequestQuery(
             config = config,
@@ -81,7 +82,7 @@ class Casdoor(private val config: CasdoorConfig) {
      */
     fun requestOauthAccessToken(code: String): AccessTokenResponse {
 
-        var httpUrl = "${config.endpoint}login/oauth/access_token".toHttpUrlOrNull()
+        var httpUrl = "${config.endpoint}/login/oauth/access_token".toHttpUrlOrNull()
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = AccessTokenRequest(
             code = code,
@@ -110,7 +111,7 @@ class Casdoor(private val config: CasdoorConfig) {
      */
     fun renewToken(refreshToken: String, scope: String? = null): AccessTokenResponse {
 
-        var httpUrl = "${config.endpoint}login/oauth/refresh_token".toHttpUrlOrNull()
+        var httpUrl = "${config.endpoint}/login/oauth/refresh_token".toHttpUrlOrNull()
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = RenewAccessTokenRequest(
             refreshToken = refreshToken,
@@ -138,7 +139,7 @@ class Casdoor(private val config: CasdoorConfig) {
      * Logout.
      */
     fun logout(idToken: String, state: String? = null): Boolean {
-        var httpUrl = "${config.endpoint}login/oauth/logout".toHttpUrlOrNull()
+        var httpUrl = "${config.endpoint}/login/oauth/logout".toHttpUrlOrNull()
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = httpUrl.newBuilder()
             .addQueryParameter("id_token_hint", idToken)
