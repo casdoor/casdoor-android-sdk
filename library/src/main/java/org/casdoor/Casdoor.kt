@@ -81,7 +81,7 @@ class Casdoor(private val config: CasdoorConfig) {
      */
     fun requestOauthAccessToken(code: String): AccessTokenResponse {
 
-        var httpUrl = "${config.apiEndpoint}login/oauth/access_token".toHttpUrlOrNull()
+        var httpUrl = "${config.endpoint}login/oauth/access_token".toHttpUrlOrNull()
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = AccessTokenRequest(
             code = code,
@@ -110,7 +110,7 @@ class Casdoor(private val config: CasdoorConfig) {
      */
     fun renewToken(refreshToken: String, scope: String? = null): AccessTokenResponse {
 
-        var httpUrl = "${config.apiEndpoint}login/oauth/refresh_token".toHttpUrlOrNull()
+        var httpUrl = "${config.endpoint}login/oauth/refresh_token".toHttpUrlOrNull()
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = RenewAccessTokenRequest(
             refreshToken = refreshToken,
@@ -138,7 +138,7 @@ class Casdoor(private val config: CasdoorConfig) {
      * Logout.
      */
     fun logout(idToken: String, state: String? = null): Boolean {
-        var httpUrl = "${config.apiEndpoint}login/oauth/logout".toHttpUrlOrNull()
+        var httpUrl = "${config.endpoint}login/oauth/logout".toHttpUrlOrNull()
         httpUrl ?: throw IllegalArgumentException("Invalid URL")
         httpUrl = httpUrl.newBuilder()
             .addQueryParameter("id_token_hint", idToken)

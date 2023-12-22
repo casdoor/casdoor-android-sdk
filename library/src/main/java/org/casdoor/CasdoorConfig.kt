@@ -26,17 +26,11 @@ data class CasdoorConfig(
     val redirectUri: String,
     var endpoint: String,
     val appName: String,
-    var apiEndpoint: String? = null
 ) {
 
 
     init {
         endpoint = formatEndpoint(endpoint)
-        apiEndpoint = if (apiEndpoint != null) {
-            formatEndpoint(apiEndpoint!!)
-        } else {
-            "${endpoint}api/"
-        }
     }
 
     private fun formatEndpoint(url: String): String {
