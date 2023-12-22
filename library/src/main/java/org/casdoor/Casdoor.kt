@@ -166,7 +166,7 @@ class Casdoor(private val config: CasdoorConfig) {
      */
     fun getUserInfo(idToken: String): UserInfo? {
         val request = Request.Builder()
-            .url("https://door.casdoor.com/api/userinfo?scope=profile")
+            .url("${config.endpoint}/api/userinfo?scope=profile")
             .header("Authorization", "Bearer $idToken")
             .build();
 
