@@ -6,11 +6,11 @@ Casdoor SDK is simple to use. We will show you the steps below.
 
 ## Step0. Adding the dependency
 
-Add the following dependency to your app's build.gradle file:
+Add the following dependency to your app's build.gradle file. Get latest version number from: https://mvnrepository.com/artifact/org.casbin/casdoor-android-sdk
 
 ```groovy
 dependencies {
-    implementation 'org.casdoor:casdoor-android-sdk:x.x.x' // not upload to maven yet...
+    implementation group: 'org.casbin', name: 'casdoor-android-sdk', version: '0.0.1'
 }
 ```
 
