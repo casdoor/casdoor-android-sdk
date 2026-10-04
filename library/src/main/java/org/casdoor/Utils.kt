@@ -18,9 +18,13 @@ package org.casdoor
 
 import android.util.Base64
 import java.security.MessageDigest
-import java.util.*
+import java.security.SecureRandom
 
 internal object Utils {
+
+    private const val ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+    private val random = SecureRandom()
 
     fun generateCodeVerifier(): String {
         return generateRandomString(84)
@@ -34,21 +38,11 @@ internal object Utils {
      * generate random string with alphabet and number
      */
     fun generateRandomString(length: Int): String {
-
-        val random = Random()
-        val sb = StringBuilder()
+        val sb = StringBuilder(length)
         for (i in 0 until length) {
-            val number = random.nextInt(3)
-            var result = 0
-            when (number) {
-                0 -> result = random.nextInt(10) + 48 // 0-9
-                1 -> result = random.nextInt(26) + 65 // A-Z
-                2 -> result = random.nextInt(26) + 97 // a-z
-            }
-            sb.append(result.toChar())
+            sb.append(ALPHABET[random.nextInt(ALPHABET.length)])
         }
         return sb.toString()
-
     }
 
     fun generateCodeChallenge(verifier: String): String {

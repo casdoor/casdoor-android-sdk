@@ -17,6 +17,7 @@
 package org.casdoor
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -35,6 +36,14 @@ internal class UtilsTest {
         val randomString = Utils.generateRandomString(10)
         println(randomString)
         assertEquals(10, randomString.length)
+        assertTrue(randomString.all { it.isLetterOrDigit() })
+    }
+
+    @Test
+    fun generateCodeChallenge() {
+        // test vector from RFC 7636 Appendix B
+        val codeChallenge = Utils.generateCodeChallenge("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk")
+        assertEquals("E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM", codeChallenge)
     }
 
 }

@@ -18,6 +18,7 @@ package org.casdoor
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import okhttp3.FormBody
 import okhttp3.HttpUrl
 
 data class CodeRequestQuery(
@@ -70,12 +71,12 @@ data class AccessTokenRequest(
     val verifier: String
 ) {
 
-    fun toHttpUrl(httpUrl: HttpUrl): HttpUrl {
-        return httpUrl.newBuilder()
-            .addQueryParameter("grant_type", grantType)
-            .addQueryParameter("client_id", clientID)
-            .addQueryParameter("code", code)
-            .addQueryParameter("code_verifier", verifier)
+    fun toFormBody(): FormBody {
+        return FormBody.Builder()
+            .add("grant_type", grantType)
+            .add("client_id", clientID)
+            .add("code", code)
+            .add("code_verifier", verifier)
             .build()
     }
 
@@ -89,12 +90,12 @@ data class RenewAccessTokenRequest(
     val refreshToken: String
 ) {
 
-    fun toHttpUrl(httpUrl: HttpUrl): HttpUrl {
-        return httpUrl.newBuilder()
-            .addQueryParameter("grant_type", grantType)
-            .addQueryParameter("client_id", clientID)
-            .addQueryParameter("refresh_token", refreshToken)
-            .addQueryParameter("scope", scope)
+    fun toFormBody(): FormBody {
+        return FormBody.Builder()
+            .add("grant_type", grantType)
+            .add("client_id", clientID)
+            .add("refresh_token", refreshToken)
+            .add("scope", scope)
             .build()
     }
 
@@ -108,7 +109,8 @@ data class AccessTokenResponse(
     @Json(name = "id_token") var idToken: String?,
     @Json(name = "refresh_token") var refreshToken: String?,
     @Json(name = "scope") var scope: String?,
-    @Json(name = "token_type") var tokenType: String?
+    @Json(name = "token_type") var tokenType: String?,
+    @Json(name = "error_description") var errorDescription: String? = null
 )
 
 @JsonClass(generateAdapter = true)

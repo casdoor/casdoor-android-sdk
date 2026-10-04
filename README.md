@@ -10,7 +10,7 @@ Add the following dependency to your app's build.gradle file. Get latest version
 
 ```groovy
 dependencies {
-    implementation group: 'org.casbin', name: 'casdoor-android-sdk', version: '0.0.1'
+    implementation group: 'org.casbin', name: 'casdoor-android-sdk', version: '0.1.0'
 }
 ```
 
@@ -71,6 +71,41 @@ Hints:
 4. After Casdoor verification passed, it will be redirected to your `redirect_uri`,
    like `casdoor://callback?code=xxx&state=yyyy`.you can catch it and get the `code` and `state`,
    then call `requestOauthAccessToken()` and parse out jwt token.
+
+## Step4. Get the access token
+
+The SDK uses PKCE, so no client secret is needed in the app. `getSignInUrl()` generates a code verifier
+which `requestOauthAccessToken()` needs later. If your activity may be recreated while the user is signing in,
+save `casdoor.codeVerifier` (for example in `onSaveInstanceState`) and pass it back:
+
+```kotlin
+val token = casdoor.requestOauthAccessToken(code, savedCodeVerifier)
+val userInfo = casdoor.getUserInfo(token.accessToken!!)
+```
+
+`requestOauthAccessToken()`, `renewToken()`, `logout()` and `getUserInfo()` make blocking network calls,
+call them from a background thread or coroutine, not the main thread.
+
+## Use from Java
+
+The SDK is written in Kotlin but can be called from Java directly:
+
+```java
+CasdoorConfig casdoorConfig = new CasdoorConfig(
+        "294b09fbc17f95daf2fe",     // clientID
+        "casbin",                   // organizationName
+        "casdoor://callback",       // redirectUri
+        "https://door.casdoor.com", // endpoint
+        "app-vue-python-example"    // appName
+);
+Casdoor casdoor = new Casdoor(casdoorConfig);
+
+String signInUrl = casdoor.getSignInUrl();
+String codeVerifier = casdoor.getCodeVerifier();
+
+// after the redirect, on a background thread:
+AccessTokenResponse token = casdoor.requestOauthAccessToken(code, codeVerifier);
+```
 
 # Example
 
